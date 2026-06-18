@@ -54,7 +54,7 @@ I created a resource group named `Az-ST-lab` and set the region to **Australia E
 2. Name: `Az-ST-lab` | Region: `Australia East`
 3. Click **Review + create** → **Create**
 
-*Screenshot: `screenshots/part1-resource-group/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
@@ -76,7 +76,7 @@ az storage account create \--name nako8kgrs \--resource-group Az-ST-lab \--locat
 az storage account create \--name nako8kzrs \--resource-group Az-ST-lab \--location australiaeast \--sku Standard_ZRS
 ```
 
-*Screenshot: `screenshots/part2-storage-accounts/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
@@ -103,7 +103,7 @@ A policy was configured on `nako8klrs` to automate tier transitions:
 
 This removes the need for manual tier management in production environments.
 
-*Screenshot: `screenshots/part3-blob-containers/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
@@ -130,7 +130,7 @@ The mount script was retrieved via the Azure Portal where I had generated a Powe
 
 > **Important Note:** I did not perform a RDP connection to the VMs due to security restrictions for my environment. The mount scripts were retrieved and documented from the Portal . In a real environment, the PowerShell script would have been executed.
 
-*Screenshot: `screenshots/part4-file-shares/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
@@ -159,7 +159,7 @@ A stored access policy was created on the `blob-hot` container to provide revoka
 
 **Key advantage:** A stored access policy can be modified or deleted at any time, instantly revoking all SAS tokens tied to it — without needing to rotate the storage account key.
 
-*Screenshot: `screenshots/part5-sas-tokens/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
@@ -183,7 +183,7 @@ Data protection settings were enabled on `nako8klrs`:
 
 This demonstrates that even after deletion, blobs remain recoverable within the retention window.
 
-*Screenshot: `screenshots/part6-soft-delete/`*
+<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
 
 ---
 
