@@ -4,7 +4,7 @@
 ---
 
 <h2>Description</h2>
-This lab focuses on how I worked with Azure Storage — covering all major storage types, access control methods, data protection features, and lifecycle management.
+This lab focuses on how I worked with Azure Storage — covering major storage types, access control methods, data protection features, and lifecycle management.
 <br /><br />
 
 | Detail | Value |
@@ -20,7 +20,7 @@ This lab focuses on how I worked with Azure Storage — covering all major stora
 
 ##  What I covered in this Lab 
 
-- Created storage accounts with LRS, GRS, and ZRS redundancy
+- Created storage accounts with LRS, GRS, and ZRS redundancy zone's
 - I Work with Blob containers and set Hot, Cool, and Archive access tiers
 - Configured lifecycle management policies to automate tier transitions
 - Created an Azure File Share and provision VMs
@@ -54,7 +54,7 @@ I created a resource group named `Az-ST-lab` and set the region to **Australia E
 2. Name: `Az-ST-lab` | Region: `Australia East`
 3. Click **Review + create** → **Create**
 
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+<img src="https://imgur.com/0aFIcEC.png" height="80%" width="80%" alt="Resource Group"/>
 
 ---
 
@@ -76,7 +76,13 @@ az storage account create \--name nako8kgrs \--resource-group Az-ST-lab \--locat
 az storage account create \--name nako8kzrs \--resource-group Az-ST-lab \--location australiaeast \--sku Standard_ZRS
 ```
 
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+<img src="https://imgur.com/UgiaxZs.png" height="80%" width="80%" alt="ST ACCs"/>
+
+<img src="https://imgur.com/HZ2FB85.png" height="80%" width="80%" alt="ST ACCs"/>
+
+<img src="https://imgur.com/Wai1pZp.png" height="80%" width="80%" alt="ST ACCs"/>
+
+<img src="https://imgur.com/HyIiPXL.png" height="80%" width="80%" alt="ST ACCs"/>
 
 ---
 
@@ -91,6 +97,8 @@ each assigned a different access tier.
 | `blob-cool` | Cool | occasionally accessed, stored 30+ days |
 | `blob-archive` | Archive | Barely accessed, stored 180+ days |
 
+<img src="https://imgur.com/TMOVGqO.png" height="80%" width="80%" alt="Blobs"/>
+
 **Lifecycle Management Policy**
 
 A policy was configured on `nako8klrs` to automate tier transitions:
@@ -103,7 +111,7 @@ A policy was configured on `nako8klrs` to automate tier transitions:
 
 This removes the need for manual tier management in production environments.
 
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+<img src="https://imgur.com/k9vAnU2.png" height="80%" width="80%" alt="Blobs"/>
 
 ---
 
@@ -112,6 +120,8 @@ This removes the need for manual tier management in production environments.
 ### File Share
 
 Created `st-fileshare` inside `nako8klrs`.
+
+<img src="https://imgur.com/1uPmcVK.png" height="80%" width="80%" alt="FS"/>
 
 ### Virtual Machines
 
@@ -122,15 +132,15 @@ Created `st-fileshare` inside `nako8klrs`.
 
 > **Note:** "Mihini" = "machine" in Māori.
 
-I had both VMs provisioned in `Az-ST-lab` in **Australia East**.
+I had `Mihini1` provisioned in `Mihini_group` and `Mihini2` provisioned in `Az-ST-lab` in **Australia East**.
+
+<img src="https://imgur.com/mZBWKtM.png" height="80%" width="80%" alt="FS"/>
 
 ### File Share Mounting
 
 The mount script was retrieved via the Azure Portal where I had generated a PowerShell script
 
-> **Important Note:** I did not perform a RDP connection to the VMs due to security restrictions for my environment. The mount scripts were retrieved and documented from the Portal . In a real environment, the PowerShell script would have been executed.
-
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+> **Important Note:** I did not perform a RDP connection to the VMs due to security restrictions for my environment. The mount scripts were retrieved and documented from the Portal . However in a real environment, the PowerShell script would have been executed.
 
 ---
 
@@ -147,6 +157,12 @@ A SAS token was generated on a blob inside `blob-hot` to demonstrate the time-li
 
 The generated SAS URL was tested in a browser — the blob loaded successfully, confirming the token worked correctly.
 
+<img src="https://imgur.com/JdgIuEK.png" height="80%" width="80%" alt="SAS"/>
+
+Blob test output
+
+<img src="https://imgur.com/Xr6KK1D.png" height="80%" width="80%" alt="SAS"/>
+
 ### Stored Access Policy — `blob-hot-policy`
 
 A stored access policy was created on the `blob-hot` container to provide revokable SAS token management.
@@ -157,9 +173,7 @@ A stored access policy was created on the `blob-hot` container to provide revoka
 | **Permissions** | Read, Write, List |
 | **Expiry** | 30 days |
 
-**Key advantage:** A stored access policy can be modified or deleted at any time, instantly revoking all SAS tokens tied to it — without needing to rotate the storage account key.
-
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+<img src="https://imgur.com/oEnXTil.png" height="80%" width="80%" alt="SAS"/>
 
 ---
 
@@ -175,6 +189,8 @@ Data protection settings were enabled on `nako8klrs`:
 | Blob soft delete | Enabled — 7 day retention |
 | Container soft delete | Enabled — 7 day retention |
 
+<img src="https://imgur.com/6pUoTIm.png" height="80%" width="80%" alt="Soft del"/>
+
 ### Simulated Deletion & Recovery
 
 1. A blob inside `blob-hot` was deleted via the Portal
@@ -183,7 +199,9 @@ Data protection settings were enabled on `nako8klrs`:
 
 This demonstrates that even after deletion, blobs remain recoverable within the retention window.
 
-<img src=".png" height="80%" width="80%" alt="Manual User Creation"/>
+<img src="https://imgur.com/X3BXsen.png" height="80%" width="80%" alt="Soft del"/>
+
+<img src="https://imgur.com/ztgYxYB.png" height="80%" width="80%" alt="Soft del"/>
 
 ---
 
